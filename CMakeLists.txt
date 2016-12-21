@@ -54,9 +54,10 @@ link_directories(
 add_executable(featureTracking src/featureTracking.cpp)
 add_executable(visualOdometry src/visualOdometry.cpp)
 add_executable(processDepthmap src/processDepthmap.cpp)
+add_executable(testRealSense src/testRealSense.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(featureTracking ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(visualOdometry ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(processDepthmap ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${PCL_LIBRARIES})
-
+target_link_libraries(testRealSense ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${PCL_LIBRARIES})
