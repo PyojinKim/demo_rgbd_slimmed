@@ -294,7 +294,7 @@ int main(int argc, char** argv)
 
   ros::Subscriber voDataSub = nh.subscribe<nav_msgs::Odometry>("/cam_to_init", 5, voDataHandler);
 
-  ros::Subscriber syncCloudSub = nh.subscribe("/camera/depth_aligned/image_raw", 1, syncCloudHandler);
+  ros::Subscriber syncCloudSub = nh.subscribe("/camera/depth_aligned/image_rect", 1, syncCloudHandler);
 
   ros::Publisher depthCloudPub = nh.advertise<sensor_msgs::PointCloud2>("/depth_cloud", 5);
   depthCloudPubPointer = &depthCloudPub;
