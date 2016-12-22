@@ -52,6 +52,8 @@ int main(int argc, char** argv)
   image_transport::Publisher imageColorPub = it.advertise("/camera/rgb/image_rect", 1);
   image_transport::Publisher imageDepthPub = it.advertise("/camera/depth_aligned/image_rect", 1);
   image_transport::Publisher imageMonoPub = it.advertise("/camera/rgb/image_rect_mono", 1);
+  ros::Time timeColorCapture = ros::Time::now();
+  ros::Time timeDepthCapture = ros::Time::now();
 
 
   // main loop
@@ -60,7 +62,9 @@ int main(int argc, char** argv)
     dev->wait_for_frames();
     // Get color and depth frame and Change the format to Mat files
     const void * colorFrame = dev->get_frame_data(rs::stream::rectified_color);
+    timeColorCapture = ros::Time::now();
     const void * depthFrame = dev->get_frame_data(rs::stream::depth_aligned_to_rectified_color);
+    timeDepthCapture = ros::Time::now();
     cv::Mat imageColor(480, 640, CV_8UC3, (void*)colorFrame);
     cv::Mat imageDepth(480, 640, CV_16UC1, (void*)depthFrame);
 
@@ -71,8 +75,11 @@ int main(int argc, char** argv)
 
     // Create image messages
     sensor_msgs::ImagePtr msgImageColor = cv_bridge::CvImage(std_msgs::Header(), "bgr8", imageColor).toImageMsg();
+    msgImageColor->header.stamp = ros::Time(timeColorCapture);
     sensor_msgs::ImagePtr msgImageDepth = cv_bridge::CvImage(std_msgs::Header(), "mono16", imageDepth).toImageMsg();
+    msgImageDepth->header.stamp = ros::Time(timeDepthCapture);
     sensor_msgs::ImagePtr msgImageMono = cv_bridge::CvImage(std_msgs::Header(), "mono8", imageMono).toImageMsg();
+    msgImageMono->header.stamp = ros::Time(timeColorCapture);
 
     // Publish images
     imageColorPub.publish(msgImageColor);
