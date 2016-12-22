@@ -74,8 +74,8 @@ int main(int argc, char** argv)
   ros::NodeHandle nh;
 
   // subscribe mono and depth image
-  ros::Subscriber monoImageDataSub = nh.subscribe("/camera/rgb/image_mono", 1, imageMonoCallback);
-  ros::Subscriber depthImageDataSub = nh.subscribe("/camera/depth_aligned/image_raw", 1, imageDepthCallback);
+  ros::Subscriber monoImageDataSub = nh.subscribe("/camera/rgb/image_rect_mono", 1, imageMonoCallback);
+  ros::Subscriber depthImageDataSub = nh.subscribe("/camera/depth_aligned/image_rect", 1, imageDepthCallback);
 
 
   ros::spin();
