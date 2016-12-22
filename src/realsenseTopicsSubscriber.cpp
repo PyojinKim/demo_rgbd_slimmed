@@ -70,7 +70,7 @@ void imageDepthCallback(const sensor_msgs::ImageConstPtr& msgImageDepth)
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "testRealSense");
+  ros::init(argc, argv, "realsenseTopicsSubscriber");
   ros::NodeHandle nh;
 
   // subscribe mono and depth image
